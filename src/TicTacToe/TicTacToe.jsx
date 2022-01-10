@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import actions from "../store/actions";
 
 const TicTacToe = () => {
+  React.useEffect(()=>{actions.set("next", "X");},[])
   const next = useSelector(() => actions.get(`next`));
   let sq = (n) => <Square identifier={n} />;
 
@@ -11,19 +12,13 @@ const TicTacToe = () => {
       <div> Next Move {next}</div>
       <div className="board">
         <div>
-          {sq(0)}
-          {sq(1)}
-          {sq(2)}
+          {sq(0)}{sq(1)}{sq(2)}
         </div>
         <div>
-          {sq(3)}
-          {sq(4)}
-          {sq(5)}
+          {sq(3)}{sq(4)}{sq(5)}
         </div>
         <div>
-          {sq(6)}
-          {sq(7)}
-          {sq(8)}
+          {sq(6)}{sq(7)}{sq(8)}
         </div>
       </div>
     </>
@@ -37,7 +32,8 @@ export function Square(props) {
 
   useEffect(() => {
     actions.set(`square${id}`, "");
-  }, []);
+    return ()=> actions.delete(`square${id}`)
+  },[]);
 
   const value = useSelector(() => actions.get(`square${id}`));
 
@@ -55,4 +51,4 @@ export function Square(props) {
   );
 }
 
-actions.set("next", "X");
+

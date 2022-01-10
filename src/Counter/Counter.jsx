@@ -3,6 +3,7 @@ import actions from "../store/actions";
 import { useSelector } from "react-redux";
 
 const Counter = () => {
+  React.useEffect(()=> actions.set('value', 0),[])
   const value = useSelector(() => actions.get("value"));
 
   const increment = () => actions.update("value", (value) => value + 1);
@@ -19,4 +20,3 @@ const Counter = () => {
 
 export default Counter;
 
-actions.set("value", 0);
